@@ -33,7 +33,9 @@ Follow these steps to install and configure the project locally:
 4. **Install Dependencies**:
    - Install the required Node.js dependencies, including Express.js:
 
-   npm install
+    ```bash
+    npm install
+    ```
 
    -This command will install all the dependencies listed in the package.json, including Express.js.
      
