@@ -70,12 +70,14 @@ The application uses JSON Web Token (JWT) for secure user authentication:
 
 - Ensure you are in the backend folder:
 
+```bash
 cd your_nodejs_folder
-
+```
 - Start the backend server:
 
+```bash
 node main.js
-
+```
 
 
 
