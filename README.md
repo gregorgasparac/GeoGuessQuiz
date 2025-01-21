@@ -61,9 +61,9 @@ Follow these steps to install and configure the project locally:
 
 The application uses JSON Web Token (JWT) for secure user authentication:
 
-    - When a user logs in or registers, a token is generated using the JWT_SECRET.
-    - This token is required to access secure endpoints and is verified for validity on each request.
-    - Ensure the JWT_SECRET in your .env file is strong and kept confidential.
+- When a user logs in or registers, a token is generated using the JWT_SECRET.
+- This token is required to access secure endpoints and is verified for validity on each request.
+- Ensure the JWT_SECRET in your .env file is strong and kept confidential.
 
 
 ### Running the Backend
