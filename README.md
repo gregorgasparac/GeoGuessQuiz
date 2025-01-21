@@ -58,17 +58,13 @@ Follow these steps to install and configure the project locally:
     - Ensure both secrets are strong and unique.
 
 ### Security and Authentication
+
 The application uses JSON Web Token (JWT) for secure user authentication:
 
-    - Access Tokens
-    Signed with ACCESS_TOKEN_SECRET.
-    Used to authenticate API requests.
-    Short-lived for security purposes.
-    - Refresh Tokens
-    Signed with REFRESH_TOKEN_SECRET.
-    Used to generate new access tokens without requiring a user to log in again.
-    - Token Verification
-    Both tokens are verified on each request to ensure their validity.
+    - When a user logs in or registers, a token is generated using the JWT_SECRET.
+    - This token is required to access secure endpoints and is verified for validity on each request.
+    - Ensure the JWT_SECRET in your .env file is strong and kept confidential.
+
 
 ### Running the Backend
 
