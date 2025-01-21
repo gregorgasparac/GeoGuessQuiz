@@ -40,20 +40,22 @@ Follow these steps to install and configure the project locally:
     npm install
     ```
 
-   -This command will install all the dependencies listed in the package.json, including Express.js.
+   - This command will install all the dependencies listed in the package.json, including Express.js.
      
 5. **Database Configuration**:
-- Create a MySQL database for GeoGuess Quiz and import the necessary schema.
+    - Create a MySQL database for GeoGuess Quiz and import the necessary schema.
 
 6. **Configure Backend**:
-- Create a .env file in the backend folder for sensitive configurations like JWT secrets. Here's an example .env file structure:
+    - Create a .env file in the backend folder for sensitive configurations like JWT secrets. Here's an example .env file structure:
 
-ACCESS_TOKEN_SECRET=your_access_token_secret
-REFRESH_TOKEN_SECRET=your_refresh_token_secret
+    ```bash
+    ACCESS_TOKEN_SECRET=your_access_token_secret
+    REFRESH_TOKEN_SECRET=your_refresh_token_secret
+    ```
 
-- ACCESS_TOKEN_SECRET: Used to sign short-lived access tokens for user authentication.
-- REFRESH_TOKEN_SECRET: Used to sign long-lived refresh tokens for re-issuing access tokens.
-- Ensure both secrets are strong and unique.
+    - ACCESS_TOKEN_SECRET: Used to sign short-lived access tokens for user authentication.
+    - REFRESH_TOKEN_SECRET: Used to sign long-lived refresh tokens for re-issuing access tokens.
+    - Ensure both secrets are strong and unique.
 
 ### Security and Authentication
 The application uses JSON Web Token (JWT) for secure user authentication:
