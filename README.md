@@ -27,11 +27,14 @@ Follow these steps to install and configure the project locally:
    - No specific installation steps needed for frontend. Ensure you have a modern web browser.
 
 3. **Clone the Repository**:
-   - git clone https://github.com/gregorgasparac/GeoGuessQuiz.git
-   - cd Quiz
+    ```bash
+    git clone https://github.com/gregorgasparac/GeoGuessQuiz.git
+    cd Quiz
+   ```
      
 4. **Install Dependencies**:
    - Install the required Node.js dependencies, including Express.js:
+
 
     ```bash
     npm install
