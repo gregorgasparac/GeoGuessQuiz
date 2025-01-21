@@ -58,7 +58,7 @@ Follow these steps to install and configure the project locally:
     - Ensure both secrets are strong and unique.
 
 ### Security and Authentication
-    The application uses JSON Web Token (JWT) for secure user authentication:
+The application uses JSON Web Token (JWT) for secure user authentication:
 
     - Access Tokens
     Signed with ACCESS_TOKEN_SECRET.
