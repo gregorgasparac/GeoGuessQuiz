@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Info</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navdiv">
+        <ul>
+            <li><a href="#" id="home-link">Home</a></li>
+            <li><a href="#" id="leaderboard-link">Leaderboard</a></li>
+            <li><a href="#" id="profile-link">Profile</a></li>
+            <li><a href="#" id="logout-link">Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Player Info</h1>
+    <div class="info" id="player-info">
+    </div>
+    <hr>
+    <h1>Quiz History</h1>
+    <div class="info" id="quiz-details">
+    </div>
+</div>
+
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="logout-yes">Yes</button>
+        <button id="logout-no">No</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            console.error('Access token not found.');
+            return;
+        }
+
+        fetch('http://localhost:3000/api/profile', {
+            headers: { 'Authorization': `Bearer ${accessToken}` }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+            return response.json();
+        })
+        .then(data => {
+            if (data && typeof data === 'object') {
+                const player = data;
+                const infoDiv = document.getElementById('player-info');
+                infoDiv.innerHTML = `
+                    <p>Username: ${player.username}</p>
+                    <p>Quiz Count: ${player.quiz_count}</p>
+                    <p>Max Result: ${player.max_result}</p>
+                    <p>Registration Time: ${formatDate(player.registration_time)}</p>
+                `;
+                fetchQuizDetails(player.username);
+            }
+        })
+        .catch(error => console.error('Error fetching player info:', error));
+
+        function formatDate(dateTimeString) {
+            const date = new Date(dateTimeString);
+            return `${date.getFullYear()}-${padNumber(date.getMonth() + 1)}-${padNumber(date.getDate())} ${padNumber(date.getHours())}:${padNumber(date.getMinutes())}:${padNumber(date.getSeconds())}`;
+        }
+
+        function padNumber(number) {
+            return number.toString().padStart(2, '0');
+        }
+
+        function fetchQuizDetails(username) {
+            fetch(`http://localhost:3000/api/details/${username}`, {
+                headers: { 'Authorization': `Bearer ${accessToken}` }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+                return response.json();
+            })
+            .then(data => {
+                if (Array.isArray(data)) {
+                    const quizDetailsDiv = document.getElementById('quiz-details');
+                    const groupedData = data.reduce((acc, detail) => {
+                        (acc[detail.quiz_id] = acc[detail.quiz_id] || []).push(detail);
+                        return acc;
+                    }, {});
+                    Object.keys(groupedData).forEach(quizId => {
+                        const quizGroup = groupedData[quizId];
+                        const quizSection = document.createElement('div');
+                        quizSection.innerHTML = `
+                            <h2>Quiz ID: ${quizId}</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Question</th>
+                                        <th>Answer</th>
+                                        <th>Correct</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${quizGroup.map(detail => `
+                                        <tr>
+                                            <td>${detail.question}</td>
+                                            <td>${detail.answer}</td>
+                                            <td>${detail.correct}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                        quizDetailsDiv.appendChild(quizSection);
+                    });
+                }
+            })
+            .catch(error => console.error('Error fetching quiz details:', error));
+        }
+
+        const homeLink = document.getElementById('home-link');
+        const leaderboardLink = document.getElementById('leaderboard-link');
+        const profileLink = document.getElementById('profile-link');
+        const logoutLink = document.getElementById('logout-link');
+        const logoutModal = document.getElementById('logoutModal');
+        const logoutYes = document.getElementById('logout-yes');
+        const logoutNo = document.getElementById('logout-no');
+
+        homeLink.addEventListener('click', () => window.location.href = 'index.html');
+        leaderboardLink.addEventListener('click', () => window.location.href = 'leaderboard.html');
+        profileLink.addEventListener('click', () => window.location.href = 'profile.html');
+        logoutLink.addEventListener('click', () => logoutModal.style.display = 'block');
+        logoutNo.addEventListener('click', () => logoutModal.style.display = 'none');
+        logoutYes.addEventListener('click', () => {
+            localStorage.removeItem('accessToken');
+            window.location.href = 'login.html';
+        });
+
+        window.addEventListener('click', event => {
+            if (event.target === logoutModal) logoutModal.style.display = 'none';
+        });
+    });
+</script>
+</body>
+</html>

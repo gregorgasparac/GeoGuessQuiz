@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .info {
+            margin: 20px 0;
+        }
+        .info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Player Info</h1>
+    <div class="info">
+        <p>Username: <%= profile.username %></p>
+        <p>Quiz Count: <%= profile.quiz_count %></p>
+        <p>Max Result: <%= profile.max_result %></p>
+        <p>Registration Time: <%= profile.registration_time %></p>
+    </div>
+</div>
+
+</body>
+</html>

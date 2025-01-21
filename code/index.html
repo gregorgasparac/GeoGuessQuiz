@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="content">
+        <button onclick="window.location.href='quiz.html'">Play Quiz</button>
+        <button onclick="window.location.href='leaderboard.html'">Leaderboard</button>
+        <button onclick="window.location.href='profile.html'">Profile</button>
+        <button id="logout-link">Log Out</button>
+    </div>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to log out?</p>
+            <button id="logout-yes">Yes</button>
+            <button id="logout-no">No</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var logoutLink = document.getElementById('logout-link');
+            var logoutModal = document.getElementById('logoutModal');
+            var logoutYes = document.getElementById('logout-yes');
+            var logoutNo = document.getElementById('logout-no');
+
+            logoutLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                logoutModal.style.display = 'block';
+            });
+
+            logoutNo.addEventListener('click', function() {
+                logoutModal.style.display = 'none';
+            });
+
+            logoutYes.addEventListener('click', function() {
+                localStorage.removeItem('token'); 
+                window.location.href = 'login.html'; 
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target == logoutModal) {
+                    logoutModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
