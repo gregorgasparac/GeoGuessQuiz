@@ -1,1 +1,6 @@
 node_js/.env
+
+database/cc.py
+database/flag.py
+database/region.py
+database/database.py
